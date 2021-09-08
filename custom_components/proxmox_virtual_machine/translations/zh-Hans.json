@@ -1,0 +1,17 @@
+{
+    "config": {
+      "step": {
+        "user": {
+          "title": "配置 Proxmox VE 信息",
+          "data": {
+            "host": "主机(域名/IP)",
+            "port": "端口号",
+            "username": "用户名",
+            "password": "密码",
+            "node": "节点名称",
+            "machine": "虚拟机 ID"
+          }
+        }
+      }
+    }
+  }

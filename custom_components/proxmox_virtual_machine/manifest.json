@@ -1,0 +1,13 @@
+{
+    "domain": "proxmox_virtual_machine",
+    "name": "Proxmox Virtual Machine",
+    "documentation": "https://github.com/xiaolanglanglang/home-assistant-proxmox-virtual-machine",
+    "issue_tracker": "https://github.com/xiaolanglanglang/home-assistant-proxmox-virtual-machine/issue",
+    "dependencies": [],
+    "after_dependencies": [],
+    "codeowners": ["@xiaolanglanglang"],
+    "requirements": [],
+    "iot_class": "local_polling",
+    "config_flow": true,
+    "version": "0.1.0"
+  }
