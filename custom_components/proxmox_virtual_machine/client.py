@@ -50,7 +50,7 @@ class ProxmoxClient:
             self._last_status = "stopping"
             self._last_operation_time = time.time()
             shutdown_url = (
-                f"{self._host}/api2/json//nodes/{node}/qemu/{vm_id}/agent/shutdown"
+                f"{self._host}/api2/json/nodes/{node}/qemu/{vm_id}/agent/shutdown"
             )
             headers = {"CSRFPreventionToken": self._token}
             cookies = {"PVEAuthCookie": self._ticket}
@@ -76,7 +76,7 @@ class ProxmoxClient:
     async def start(self, node: str, vm_id: str) -> bool:
         try:
             start_url = (
-                f"{self._host}/api2/json//nodes/{node}/qemu/{vm_id}/status/start"
+                f"{self._host}/api2/json/nodes/{node}/qemu/{vm_id}/status/start"
             )
             self._last_status = "running"
             self._last_operation_time = time.time()
@@ -121,8 +121,8 @@ class ProxmoxClient:
             self._last_status = status
             self._logger.debug(f"node: ({node}), vm: ({vm_id}), status: ({status})")
             return status
-        except:
+        except Exception as e:
             self._logger.warning(
-                f"get machine status error, node: ({node}), vm: ({vm_id})"
+                f"get machine status error,host: {self._host}, node: ({node}), vm: ({vm_id}), exception: {type(e).__name__}"
             )
             return False
