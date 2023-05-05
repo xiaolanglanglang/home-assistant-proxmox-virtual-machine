@@ -5,7 +5,7 @@ import httpx
 
 lock = asyncio.Lock()
 
-DEFAULT_MIN_INTERVAL = 30
+DEFAULT_MIN_INTERVAL = 60
 OPERATION_API_TIMEOUT = 60
 
 
@@ -103,7 +103,7 @@ class ProxmoxClient:
         try:
             self._logger.debug(f"get status, node: ({node}), vm: ({vm_id})")
             status_url = (
-                f"{self._host}/api2/json//nodes/{node}/qemu/{vm_id}/status/current"
+                f"{self._host}/api2/json/nodes/{node}/qemu/{vm_id}/status/current"
             )
             cookies = {"PVEAuthCookie": self._ticket}
             async with httpx.AsyncClient(verify=False) as client:
@@ -117,15 +117,12 @@ class ProxmoxClient:
             response_data = result["data"]
             status = response_data["status"]
             if time.time() - self._last_operation_time < DEFAULT_MIN_INTERVAL:
-                if self._last_status == "stopping" and status == "running":
-                    return "stopping"
-                if self._last_status == "running" and status == "stopped":
-                    return "running"
+                return self._last_status
             self._last_status = status
             self._logger.debug(f"node: ({node}), vm: ({vm_id}), status: ({status})")
             return status
-        except:
+        except e:
             self._logger.warning(
-                f"get machine status error, node: ({node}), vm: ({vm_id}"
+                f"get machine status error, node: ({node}), vm: ({vm_id}), exception: ({e})"
             )
             return False
