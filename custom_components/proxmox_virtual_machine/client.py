@@ -121,8 +121,8 @@ class ProxmoxClient:
             self._last_status = status
             self._logger.debug(f"node: ({node}), vm: ({vm_id}), status: ({status})")
             return status
-        except e:
+        except:
             self._logger.warning(
-                f"get machine status error, node: ({node}), vm: ({vm_id}), exception: ({e})"
+                f"get machine status error, node: ({node}), vm: ({vm_id})"
             )
             return False
